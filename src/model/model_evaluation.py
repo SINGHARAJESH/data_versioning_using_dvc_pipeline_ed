@@ -69,7 +69,7 @@ def save_metrics(metrics: Dict[str, float], file_path: str) -> None:
 def main():
     try:
         model = load_model('./models/model.pkl')
-        test_df = load_test_data('./data/features/test_bow.csv')
+        test_df = load_test_data('./data/features/test_tfidf.csv')
 
         X_test = test_df.iloc[:, :-1].values
         y_test = test_df.iloc[:, -1].values

@@ -75,7 +75,7 @@ def save_model(model,file_path):
 def main():
     try:
         params = load_params('params.yaml')
-        train_df = load_data(r'.\data\features\train_bow.csv')
+        train_df = load_data(r'.\data\features\train_tfidf.csv')
         X_train, y_train = split_data(train_df)
 
         clf = model_building(X_train, y_train, params)

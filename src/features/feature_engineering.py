@@ -5,6 +5,7 @@ import yaml
 import logging
 from typing import Tuple
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 # ---------------- Logging Setup ----------------
 logging.basicConfig(
@@ -41,7 +42,7 @@ def load_data(train_path: str, test_path: str) -> Tuple[pd.DataFrame, pd.DataFra
 # ---------------- Vectorize Text ----------------
 def vectorize_text(X_train: np.ndarray, X_test: np.ndarray, max_features: int) -> Tuple[np.ndarray, np.ndarray, CountVectorizer]:
     try:
-        vectorizer = CountVectorizer(max_features=max_features)
+        vectorizer = TfidfVectorizer(max_features=max_features)
         X_train_bow = vectorizer.fit_transform(X_train)
         X_test_bow = vectorizer.transform(X_test)
         logging.info("Text vectorization (BoW) completed.")
@@ -61,8 +62,8 @@ def save_features(X_train_bow, X_test_bow, y_train, y_test, path: str) -> None:
         test_df = pd.DataFrame(X_test_bow.toarray())
         test_df['label'] = y_test
 
-        train_df.to_csv(os.path.join(path, 'train_bow.csv'), index=False)
-        test_df.to_csv(os.path.join(path, 'test_bow.csv'), index=False)
+        train_df.to_csv(os.path.join(path, 'train_tfidf.csv'), index=False)
+        test_df.to_csv(os.path.join(path, 'test_tfidf.csv'), index=False)
 
         logging.info("Feature-engineered datasets saved successfully.")
     except Exception as e:
